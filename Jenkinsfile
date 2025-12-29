@@ -2,11 +2,9 @@ pipeline {
     agent any
 
     stages {
-
-        stage('Clone Repository') {
+        stage('Checkout SCM') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/WajeehaAli159/flask-docker-selenium-part1.git'
+                checkout scm
             }
         }
 
@@ -20,10 +18,8 @@ pipeline {
 
         stage('Run Selenium Tests') {
             steps {
-                sh '''
-                sleep 15
-                docker exec flask-tdd-testdrivenio_users_1 pytest selenium_tests/
-                '''
+                sh 'sleep 15'
+                sh 'docker exec flask-docker-selenium-ci_users_1 pytest selenium_tests/'
             }
         }
     }
